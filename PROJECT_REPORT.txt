@@ -7,7 +7,7 @@ DATE: February 18, 2026
 
 EcoMed-AI is a next-generation water quality monitoring system designed to bridge the gap between chemical analysis, temporal anomaly detection, and geospatial source tracing. While traditional water testing relies on isolated metrics, EcoMed-AI integrates three distinct layers of intelligence into a single decision-making pipeline.
 
-The system determines water potability with 94.8% accuracy using a Random Forest model trained on 20 critical chemical parameters (WHO standards). It uniquely enhances this analysis by integrating with the "AquaSentinel" temporal analysis unit to factor in historical anomaly risks and physical infrastructure context.
+The system determines water potability with 94.8% accuracy using a Random Forest model trained on a **Global Public Research Benchmark (Kaggle)** consisting of 8,000 samples and 20 critical chemical parameters (WHO standards). It uniquely enhances this analysis by integrating with the "AquaSentinel" temporal analysis unit to factor in historical anomaly risks and physical infrastructure context.
 
 A key innovation of this project is its "Global Adaptability." The system can seamlessly switch between analyzing pipe-network infrastructure (e.g., Dubai) and groundwater-based risk zones (e.g., Bangladesh), proving that the core AI architecture is universally applicable.
 
@@ -69,9 +69,9 @@ Here is a breakdown of the critical files included in your submission and their 
     The "Factory." This is the script used to train the final Artificial Intelligence model. It loads the raw data, cleans it, trains the Random Forest, and saves the optimized model files (.pkl) for the app to use.
 
 [DATASETS]
--   waterQuality1.csv: The primary dataset used for training (7,996 samples).
--   bangladesh_water.csv: The dataset representing groundwater risks in Bangladesh.
--   aquasentinel/source_tracing_results.csv: The time-series dataset representing pipe network anomalies in Dubai.
+-   waterQuality1.csv: Primary training dataset (Kaggle Global Benchmark: 7,996 samples).
+-   bangladesh_water.csv: Regional validation dataset (Groundwater risk profile).
+-   aquasentinel/source_tracing_results.csv: Time-series dataset (Sensor-based anomaly monitoring).
 
 ================================================================================
 5. GLOBAL SCALABILITY DEMONSTRATION

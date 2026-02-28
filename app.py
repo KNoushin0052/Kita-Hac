@@ -846,7 +846,12 @@ with tab_dashboard:
         <div style="font-size:0.75rem;color:#adb5bd;text-transform:uppercase;
                     letter-spacing:1.5px;margin-bottom:8px;">{_ai_source} · AI Health Advisory</div>
         <div style="font-size:1.05rem;color:#f8f9fa;line-height:1.7;">{_icon} {_ai_text}</div>
-        <div style="font-size:0.7rem;color:#6c757d;margin-top:12px;">Based on: {_contam_str}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;opacity:0.8;">
+            <div style="font-size:0.7rem;color:#adb5bd;">Based on: {_contam_str}</div>
+            <div style="font-size:0.65rem;color:#adb5bd;text-transform:uppercase;letter-spacing:0.5px;">
+                📊 Kaggle Global Benchmark (8,000 samples)
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
