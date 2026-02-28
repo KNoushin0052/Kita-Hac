@@ -799,12 +799,24 @@ with tab_dashboard:
 
         if _vertex_result:
             # TRUST THE API: If API gives a verdict, use it!
-            # The API (ecomed-api) already has the Safety Override logic inside it.
             api_verdict = _vertex_result.get("verdict", _verdict_str)
             _ai_text    = _vertex_result.get("ai_explanation", "AI analysis unavailable")
             _ai_source  = "🌩️ EcoMed-AI API · Gemini 2.5 Flash"
-            
+
+            # ── Detect if the Cloud Run API's Gemini key is broken ──
+            # If so, fall back to local Gemini rather than showing raw error
+            _api_gemini_broken = (
+                "API key expired" in _ai_text or
+                "INVALID_ARGUMENT" in _ai_text or
+                "API_KEY_INVALID" in _ai_text or
+                "Explanation error" in _ai_text
+            )
+            if _api_gemini_broken and GEMINI_ENABLED:
+                _ai_text   = _get_gemini_explanation(_verdict_str, prob, _contam_str, _viol_count)
+                _ai_source = "🔑 Direct · Gemini 2.5 Flash"
+
             # Map API verdict to UI colors
+
             if api_verdict == "SAFE":
                 _verdict_str = "SAFE"
                 _card_color, _border_color, _icon = "#0f5132", "#198754", "✅"
