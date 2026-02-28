@@ -19,9 +19,12 @@ from pathlib import Path
 from streamlit_folium import st_folium
 
 # ── Gemini AI (direct — used as fallback) ────────────────────────────────────
+import os
 try:
     from google import genai as _genai
-    GEMINI_API_KEY = "AIzaSyBd8vveqDJoBjCwovJ6q8tUIOxIV8yKZ7g"
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+    if not GEMINI_API_KEY:
+        raise ValueError("GEMINI_API_KEY environment variable not set")
     _gemini_client = _genai.Client(api_key=GEMINI_API_KEY)
     GEMINI_ENABLED = True
 except Exception:

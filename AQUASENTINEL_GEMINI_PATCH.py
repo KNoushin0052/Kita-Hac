@@ -10,7 +10,7 @@ Step 3: Replace the hardcoded `action_required` with this Gemini call
 
 Deploy command:
   gcloud run deploy ecomed-backend \
-    --set-env-vars GEMINI_API_KEY=AIzaSyBd8vveqDJoBjCwovJ6q8tUIOxIV8yKZ7g \
+    --set-env-vars GEMINI_API_KEY=$GEMINI_API_KEY \
     --region us-central1
 
 OR set it in Cloud Console:
@@ -21,7 +21,9 @@ OR set it in Cloud Console:
 import os
 from google import genai
 
-_GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyBd8vveqDJoBjCwovJ6q8tUIOxIV8yKZ7g")
+_GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
+if not _GEMINI_KEY:
+    raise ValueError("GEMINI_API_KEY environment variable not set")
 _gemini_client = genai.Client(api_key=_GEMINI_KEY)
 
 

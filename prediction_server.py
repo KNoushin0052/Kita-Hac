@@ -35,7 +35,9 @@ import os
 # ── Gemini (google-genai SDK — no Google Cloud auth needed) ──────────────────
 try:
     from google import genai as _genai
-    _GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyBd8vveqDJoBjCwovJ6q8tUIOxIV8yKZ7g")
+    _GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
+    if not _GEMINI_KEY:
+        raise ValueError("GEMINI_API_KEY environment variable not set")
     _gemini_client = _genai.Client(api_key=_GEMINI_KEY)
     GEMINI_ENABLED = True
     print("✅ Gemini (google-genai) initialized.")
@@ -43,6 +45,7 @@ except Exception as _e:
     _gemini_client = None
     GEMINI_ENABLED = False
     print(f"⚠️  Gemini not available: {_e}")
+
 
 app = Flask(__name__)
 
