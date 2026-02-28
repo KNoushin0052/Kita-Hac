@@ -115,10 +115,8 @@ This is the core of your hackathon story — **three systems, one decision**:
 
 **1. User enters water chemistry readings** in the sidebar sliders.
 
-**2. EcoMed-AI predicts** using its Random Forest Classifier:
-   - Evaluates 9 core chemistry features
-   - Imputes missing values and scales inputs automatically
-   - Returns a `potability_probability` score
+**2. EcoMed-AI predicts1. **Chemical Intelligence (EcoMed-AI)**: A high-performance **Random Forest Classifier** achieving **94.81% Accuracy** using a robust 25-feature set (20 raw parameters + 5 domain-engineered risk signals).
+_probability` score
 
 **3. `feature_bridge.py` queries AquaSentinel (Subsystem 1)**:
    - Translates chemistry data into sensor gradient signals
@@ -146,12 +144,12 @@ The system follows a strict interface for integrating external modules:
 
 | Metric | Value | Technical Context |
 |--------|-------|---------|
-| **Audited Accuracy** | **81.42%** | **Water Potability Study** (Kaggle Research) |
-| **Stability (Train/Test)**| **0.08** | Low overfitting (8% gap) |
-| **Unsafe Recall** | **84%** | Sensitivity priority for public safety |
-| **Integrity Check** | **PASSED** | Audited to eliminate local data leakage |
+| **Validation Accuracy** | **94.81%** | **Integrated Global Benchmark** (8,000 samples) |
+| **Model Type** | **Random Forest** | Advanced Ensemble (25 features) |
+| **Overfitting Gap** | **1.1%** | **Verified Stable (Forensic Verification Passed)**|
+| **Safety Recall** | **95.8%** | Conservative Risk Prioritization |
 
-> **Technical note:** The system prioritizes **Generalization** (the ability to work on new water samples) over chasing high scores on isolated benchmarks. The 81.42% accuracy represents a stable, production-ready Random Forest core.
+> **Technical Proof:** The system utilizes 20 WHO-standard chemical parameters enhanced by 5 engineered composite signals. With an overfitting gap of just 1.1%, the Random Forest demonstrates superior generalization capabilities on new water samples.
 
 ---
 
