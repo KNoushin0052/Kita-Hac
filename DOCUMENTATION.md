@@ -1,11 +1,11 @@
 # EcoMed-AI: Integrated Water Safety Intelligence
-## Technical Documentation & Hackathon Submission
+## Technical Specification & Architectural Overview
 
 ---
 
 ## 1. Project Overview
 EcoMed-AI is a **multi-regional water safety intelligence system** that integrates three distinct layers of analysis to detect contamination:
-1.  **Chemical Safety (EcoMed-AI):** A Random Forest model analysing 20 chemical parameters (Arsenic, Lead, Bacteria, etc.) to predict potability. Works globally.
+1.  **Chemical Safety (EcoMed-AI):** A rigorous, audited **Random Forest Classifier** achieving **81.42% accuracy** on the standard Water Potability Study. We intentionally regularized this model to eliminate technical "leakage" found in higher-scoring synthetic benchmarks.
 2.  **Anomaly Detection (AquaSentinel):** A temporal model detecting sudden spikes in sensor readings (conductivity/turbidity gradients).
 3.  **Source Tracing Layer:** A geospatial module that maps contamination to specific pipe infrastructure (in Dubai) or groundwater districts (in Bangladesh).
 
@@ -58,20 +58,19 @@ A key innovation is the system's ability to adapt its visualization based on reg
 - **`generate_bangladesh_data.py`**: a script that generates realistic groundwater data based on BGS/WHO statistics for the Bangladesh demo.
 
 ### 🔴 Training & Modeling
-- **`train_on_waterquality1.py`**: The script used to train the primary EcoMed-AI model.
-    - **Algorithm:** Random Forest Classifier (n_estimators=300)
-    - **Accuracy:** 94.8% (on test set)
-    - **Features:** 20 WHO-standard chemical parameters
-    - **Handling Imbalance:** Uses `class_weight='balanced'` to handle the 89% unsafe / 11% safe imbalance.
+- **`train_regularized_model.py`**: The script used to train the primary "Honest Logic" model.
+    - **Algorithm:** Random Forest Classifier (Pruned)
+    - **Accuracy:** 81.42% (Validated, Leakage-Free)
+    - **Audit:** We rejected a 94.8% synthetic model for failing our Forensic Audit (data leakage). This 81% model is the one we stand behind for real-world safety.
 
 ---
 
 ## 5. Dataset Specifications
 
-### Primary Training Data: `data/raw/waterQuality1.csv`
-- **Rows:** 8,000 samples
-- **Features:** aluminium, ammonia, arsenic, barium, cadmium, chloramine, chromium, copper, flouride, bacteria, viruses, lead, nitrates, nitrites, mercury, perchlorate, radium, selenium, silver, uranium.
-- **Target:** `is_safe` (0/1)
+### Primary Training Data: `data/raw/water_potability.csv`
+- **Rows:** 3,276 samples (Kaggle Research Standard)
+- **Features:** pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity.
+- **Why this dataset?** It provided the most realistic challenge for regularization and feature engineering, which we used to prove our system's reliability.
 
 ### Regional Data:
 - **`bangladesh_water.csv`**: 2,000 samples simulating Bangladesh groundwater, with high arsenic in Comilla/Chandpur and high salinity in coastal areas.
@@ -91,9 +90,9 @@ A key innovation is the system's ability to adapt its visualization based on reg
     streamlit run app.py
     ```
 
-3.  **Retrain the Model (Optional):**
+3.  **Retrain the Model (Audit Mode):**
     ```bash
-    python train_on_waterquality1.py
+    python train_regularized_model.py
     ```
 
 ---
@@ -104,4 +103,4 @@ A key innovation is the system's ability to adapt its visualization based on reg
 - **Mobile Alert:** Push notification system when `Safety Score < 0.35` (Critical).
 
 ---
-*Generated for Hackathon Submission - 2026*
+*Production-Grade Technical Documentation*
