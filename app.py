@@ -21,6 +21,11 @@ from streamlit_folium import st_folium
 # ── Gemini AI (direct — used as fallback) ────────────────────────────────────
 import os
 try:
+    from dotenv import load_dotenv; load_dotenv()  # auto-loads .env — never committed to git
+except ImportError:
+    pass
+try:
+
     from google import genai as _genai
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
     if not GEMINI_API_KEY:

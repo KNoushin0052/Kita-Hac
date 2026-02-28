@@ -8,3 +8,4 @@ streamlit-folium
 flask
 google-cloud-aiplatform
 google-generativeai
+python-dotenv

@@ -31,9 +31,14 @@ Response format:
 from flask import Flask, request, jsonify
 from integrated_pipeline import IntegratedWaterSafetyPipeline
 import os
+try:
+    from dotenv import load_dotenv; load_dotenv()
+except ImportError:
+    pass
 
 # ── Gemini (google-genai SDK — no Google Cloud auth needed) ──────────────────
 try:
+
     from google import genai as _genai
     _GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
     if not _GEMINI_KEY:
