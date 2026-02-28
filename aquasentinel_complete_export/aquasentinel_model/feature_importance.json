@@ -1,0 +1,54 @@
+[
+  {
+    "feature": "conductivity_gradient_smooth_fixed",
+    "importance": 0.2888467395917809
+  },
+  {
+    "feature": "turbidity_gradient_smooth_fixed",
+    "importance": 0.24705443494646737
+  },
+  {
+    "feature": "temporal_month",
+    "importance": 0.14135856582356726
+  },
+  {
+    "feature": "nitrate_gradient_smooth_fixed",
+    "importance": 0.09257378791305619
+  },
+  {
+    "feature": "conductivity_6h_zscore_fixed",
+    "importance": 0.0708304805660443
+  },
+  {
+    "feature": "temperature_gradient_smooth_fixed",
+    "importance": 0.05627862883577887
+  },
+  {
+    "feature": "nitrate_6h_zscore_fixed",
+    "importance": 0.04596719889403634
+  },
+  {
+    "feature": "turbidity_6h_zscore_fixed",
+    "importance": 0.027139180477699424
+  },
+  {
+    "feature": "hour",
+    "importance": 0.012497957631981343
+  },
+  {
+    "feature": "hour_cos",
+    "importance": 0.012128806477584186
+  },
+  {
+    "feature": "hour_sin",
+    "importance": 0.0035860976998832884
+  },
+  {
+    "feature": "temporal_dayofweek",
+    "importance": 0.0015000691380464776
+  },
+  {
+    "feature": "is_weekend",
+    "importance": 0.00023805200407395354
+  }
+]

@@ -1,0 +1,30 @@
+{
+    "comment": "Single source of truth — all paths and thresholds live here. Never hard-code in scripts.",
+    "paths": {
+        "primary_model": "data/processed/wq1_model/model.pkl",
+        "primary_scaler": "data/processed/wq1_model/scaler.pkl",
+        "primary_imputer": "data/processed/wq1_model/imputer.pkl",
+        "primary_features": "data/processed/wq1_model/feature_names.json",
+        "primary_dataset": "data/raw/waterQuality1.csv",
+        "legacy_model": "data/processed/regularized_model/best_model.pkl",
+        "legacy_scaler": "data/processed/regularized_model/scaler.pkl",
+        "legacy_imputer": "data/processed/regularized_model/imputer.pkl",
+        "legacy_dataset": "data/raw/water_potability.csv",
+        "aquasentinel_model": "aquasentinel_complete_export/aquasentinel_model/anomaly_detector.pkl",
+        "aquasentinel_features": "aquasentinel_complete_export/aquasentinel_model/feature_importance.json"
+    },
+    "inference": {
+        "safety_threshold": 0.50,
+        "caution_threshold": 0.35,
+        "anomaly_risk_high": 0.70,
+        "anomaly_risk_moderate": 0.40,
+        "spatial_close_m": 300,
+        "spatial_very_close_m": 100
+    },
+    "feature_bridge_mapping": {
+        "description": "Maps AquaSentinel sensor names to EcoMed-AI chemistry equivalents. Bridge features are ADDED to chemistry features, not replacing them.",
+        "temporal_conductivity": "Conductivity",
+        "temporal_turbidity": "Turbidity",
+        "temporal_nitrate": "Solids_proxy"
+    }
+}

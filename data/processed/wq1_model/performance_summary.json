@@ -1,0 +1,14 @@
+{
+  "dataset": "waterQuality1.csv",
+  "n_samples": 7996,
+  "n_features": 25,
+  "train_accuracy": 0.9589,
+  "test_accuracy": 0.9481,
+  "overfitting_gap": 0.0108,
+  "f1_score": 0.792,
+  "roc_auc": 0.9808,
+  "cv_accuracy_mean": 0.942,
+  "cv_accuracy_std": 0.0073,
+  "cv_roc_mean": 0.9807,
+  "unsafe_recall_pct": 95.84
+}

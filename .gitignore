@@ -1,0 +1,77 @@
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyo
+*.pyd
+
+# ─── Virtual Environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ─── Jupyter / IPython ────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── Large binary / model files ───────────────────────────────────────────────
+# The main model is ~4.9 MB — included. The large event log is excluded.
+aquasentinel_complete_export/aquasentinel_model/anomaly_events.csv
+
+# ─── Archives / zips (too large for git) ─────────────────────────────────────
+*.zip
+
+# ─── Archive / old-work folders ───────────────────────────────────────────────
+_archive_final/
+
+# ─── Duplicate / messy partner export folders ─────────────────────────────────
+# The canonical partner model lives in aquasentinel_complete_export/
+water_contaminant_ P1/
+water_contaminant_source_P2/
+
+# ─── Vertex AI deployment copy (duplicate of root files) ──────────────────────
+Vertex_AI_Files/
+
+# ─── Vertex deployment subfolder (duplicate of root files) ────────────────────
+vertex_deployment/
+
+# ─── Dev/test one-off scripts ─────────────────────────────────────────────────
+test_gemini_key.py
+test_local_api.py
+test_vertex_endpoint.py
+
+# ─── Internal/presentation-only docs ─────────────────────────────────────────
+VERTEX_COMMANDS.txt
+PROJECT_PRESENTATION_BREAKDOWN.txt
+
+# ─── Sensitive / credentials ─────────────────────────────────────────────────
+*.json.secret
+.env
+*.env
+service_account*.json
+gcp_key*.json
+*_credentials*.json
+
+# ─── OS noise ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDE / editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Streamlit ────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ─── Logs / temp ─────────────────────────────────────────────────────────────
+*.log
+*.tmp
+*.bak
