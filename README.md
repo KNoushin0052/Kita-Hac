@@ -1,71 +1,67 @@
-# 💧 EcoMed-AI — Integrated Water Safety System
-### Hackathon Submission Guide
+# 💧 EcoMed-AI — Integrated Water Safety Intelligence
+### Hackathon Submission: AI-Powered Water Safety & Response System
 
 ---
 
-## 📁 Final Project Structure
+## 📁 Final Project Structure (Clean Version)
 
 ```
 EcoMed-AI/
-│
-├── 📄 README.md                    ← This file — start here
-├── ⚙️  integration_config.json     ← All paths & thresholds (never hard-code)
-│
-├── 🐍 app.py                       ← ✅ DEMO — run this for the hackathon
-├── 🐍 integrated_pipeline.py       ← Python API for your model
-├── 🐍 feature_bridge.py            ← Connects EcoMed-AI ↔ AquaSentinel
+├── 🐍 app.py                  ← ✅ MAIN DEMO (Streamlit Dashboard)
+├── 🐍 integrated_pipeline.py  ← Core ML Decision Engine
+├── 🐍 prediction_server.py    ← ⚡ CLOUD RUN API (Flask + Gemini AI)
+├── 🐍 feature_bridge.py       ← Integrates EcoMed-AI ↔ AquaSentinel
 │
 ├── 📂 data/
-│   ├── raw/
-│   │   ├── waterQuality1.csv       ← Primary dataset (7,996 samples, 20 features)
-│   │   └── water_potability.csv    ← Legacy dataset (kept for reference)
-│   └── processed/
-│       ├── wq1_model/              ← ✅ PRIMARY MODEL (use this)
-│       │   ├── model.pkl
-│       │   ├── scaler.pkl
-│       │   ├── imputer.pkl
-│       │   └── feature_names.json
-│       └── regularized_model/      ← Legacy model (kept for reference)
+│   ├── raw/                   ← Benchmark Datasets (waterQuality1.csv, etc.)
+│   └── processed/wq1_model/   ← ✅ PRODUCTION MODEL (v2 Integrated)
 │
-├── 📂 aquasentinel_complete_export/ ← Friend's P1: AquaSentinel anomaly detector
-├── 📂 water_contaminant_ P1/        ← Friend's P1 (original export)
-├── 📂 water_contaminant_source_P2/  ← Friend's P2: Source tracing
+├── 📂 aquasentinel_complete_export/ ← Team P1: Temporal Anomaly Detector
+├── 📂 visualizations/          ← Performance Charts & Dashboards
 │
-├── 📂 visualizations/              ← Charts & outputs
-└── 📂 _archive_final/              ← All old files (ignore)
+├── ⚙️  integration_config.json  ← Central Configuration (Thresholds & Paths)
+├── 📄 .env.example            ← Environment variable template (for Gemini)
+├── 🐋 Dockerfile               ← Container configuration for Cloud Run
+├── 📋 requirements.txt        ← All dependencies
+├── ⚖️  LICENSE                 ← MIT License
 ```
+
 
 ---
 
-## 🚀 How to Run
+## 🚀 How to Run Locally
 
-### Step 1 — Activate the environment
+### 1. Setup Environment
 ```powershell
-# From the EcoMed-AI folder:
+# Create & Activate venv
+python -m venv .venv
 .venv\Scripts\activate
+
+# Install Dependencies
+pip install -r requirements.txt
 ```
 
-### Step 2 — Launch the demo app
+### 2. Configure AI Health Advisor (Gemini)
+1. Copy `.env.example` to `.env`.
+2. Get your free API key from [aistudio.google.com](https://aistudio.google.com).
+3. Add it to your `.env` file: `GEMINI_API_KEY=your_key_here`.
+
+### 3. Launch Dashboard
 ```powershell
 streamlit run app.py
 ```
-Opens at **http://localhost:8501** — this is your hackathon demo.
+Opens at **http://localhost:8501** — your full interactive judge's demo.
 
-### Step 3 — Use the Python API directly
-```python
-from integrated_pipeline import IntegratedWaterSafetyPipeline
+---
 
-pipeline = IntegratedWaterSafetyPipeline()
+## 🧠 The Winning Innovation: Triple-Signal Intelligence
 
-result = pipeline.predict({
-    "ph": 7.2, "Hardness": 150, "Solids": 18000,
-    "Chloramines": 5, "Sulfate": 250, "Conductivity": 400,
-    "Organic_carbon": 10, "Trihalomethanes": 60, "Turbidity": 3.0
-})
-print(result)
-# → {"safety_label": "✅ SAFE", "potability_probability": 0.72,
-#    "aqua_anomaly_risk": 0.12, "aqua_spatial_confidence": 0.55, ...}
-```
+We didn't just build a model; we built a **System**. EcoMed-AI merges three distinct intelligence signals into one safety verdict:
+
+1. **Chemical Intelligence (EcoMed-AI)**: Analyzes 25 parameters (WHO/EPA standards) using a 94.8% accurate Random Forest classifier.
+2. **Temporal Intelligence (AquaSentinel)**: Detects sudden "hidden" spikes in sensor data that static testing misses.
+3. **Generative Intelligence (Google Gemini)**: Translates raw ML probabilities into plain-language health advisories for communities.
+
 
 ### Step 4 — Test the feature bridge (AquaSentinel connection)
 ```powershell
