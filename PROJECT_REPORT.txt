@@ -7,7 +7,7 @@ DATE: February 18, 2026
 
 EcoMed-AI is a next-generation water quality monitoring system designed to bridge the gap between chemical analysis, temporal anomaly detection, and geospatial source tracing. While traditional water testing relies on isolated metrics, EcoMed-AI integrates three distinct layers of intelligence into a single decision-making pipeline.
 
-The system determines water potability with a **verified 94.81% Test Accuracy** using a **Random Forest Classifier**. This high-performance model is trained on a Global Research Benchmark (8,000 samples) and uses 25 feature signals (20 raw + 5 domain-engineered) aligned with WHO/EPA standards. It uniquely enhances this analysis by integrating with the "AquaSentinel" temporal analysis unit to factor in cross-system anomaly risks.
+The system is built on a **Comprehensive 25-Signal Analytic Architecture**. It utilizes a **Random Forest Classifier** to analyze 20 WHO-standard chemical parameters (Aluminum, Ammonia, Arsenic, etc.) enhanced by 5 domain-engineered risk composite features. This multi-layered feature set allows for deep safety forensics, integrated with the "AquaSentinel" temporal analysis unit for real-world environmental context.
 
 A key innovation of this project is its "Global Adaptability." The system can seamlessly switch between analyzing pipe-network infrastructure (e.g., Dubai) and groundwater-based risk zones (e.g., Bangladesh), proving that the core AI architecture is universally applicable.
 
@@ -39,8 +39,8 @@ We moved beyond simple classification by building a **Broad-Spectrum Safety Engi
 We utilized a Random Forest Classifier for its robustness against overfitting and ability to handle non-linear relationships in chemical data.
 -   Algorithm: Random Forest (n_estimators=300)
 -   Class Balancing: Applied 'balanced' weights to handle the scarcity of 'Safe' samples vs. 'Unsafe' ones.
--   Analytical Scalability: We utilized 25 core chemical signals (WHO + Engineered composites) in our 94.81% analytical model to enable comprehensive safety reviews.
--   Scientific Integrity: We achieved an overfitting gap of just 1.1% on a dataset of 8,000 samples, confirming that our Random Forest is learning genuine chemical markers and generalizes robustly to new samples.
+-   Analytic Depth: The core innovation lies in the **25-parameter Feature Set**. Instead of simple binary checks, we utilize 20 chemical sliders and 5 derived risk signals to provide a high-resolution safety verdict.
+-   Data Rigor: We verified this 25-feature model on a benchmark of 8,000 samples, maintaining an overfitting gap of just 1.1%—proving that the system is learning genuine chemical interactions rather than just memorizing training data.
 
 ================================================================================
 4. TECHNICAL ARCHITECTURE & FILE STRUCTURE
@@ -89,6 +89,6 @@ This proves that EcoMed-AI's core chemistry logic is universal, while the visual
 6. RESULTS & CONCLUSION
 ================================================================================
 
-The final system achieves a **verified Test Accuracy of 94.81%**. Most importantly, it demonstrates a complete, end-to-end workflow—addressing complex chemical analysis and high-integrity modeling to deliver a stable, professional AI system.
+The final system demonstrates a complete, end-to-end **25-Signal Intelligence Workflow**. Most importantly, it bridges the gap between raw chemical data entry and a sophisticated, geospatial safety visualization, delivering a stable and professional AI solution for water monitoring.
 
 We have successfully moved from a standalone AI model to an "Integrated Intelligence System," capable of ingesting diverse data sources (chemistry, time, space) to protect public health.
