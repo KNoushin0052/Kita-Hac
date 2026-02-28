@@ -19,7 +19,7 @@ A key innovation of this project is its "Global Adaptability." The system can se
 To build a unified, automated system that predicts whether a water sample is SAFE or UNSAFE for human consumption, providing not just a binary label but a detailed, explainable safety verdict.
 
 2.2. KEY OBJECTIVES
--   Integrate Chemistry & Context: Combine pure chemical data (EcoMed-AI) with temporal anomaly scores (AquaSentinel subsystem) and spatial data (Geospatial Analysis layer).
+-   Integrate Chemistry & Context: Combine pure chemical data (EcoMed-AI) with temporal anomaly scores (AquaSentinel P1) and spatial data (Source Tracing P2).
 -   Achieve High Accuracy: Surpass the 90% benchmark on synthetic testing data while maintaining robust recall on unsafe samples (catching dangerous water is the priority).
 -   Ensure Global Scalability: Demonstrate the system's ability to handle different types of water networks—specifically comparing a modern pipe network (Dubai) vs. a groundwater-dependent region (Bangladesh).
 -   Real-Time Visualisation: Provide an interactive dashboard for stakeholders to visualize contamination risks live on a map.
@@ -28,19 +28,19 @@ To build a unified, automated system that predicts whether a water sample is SAF
 3. METHODOLOGY: HOW WE ACHIEVED IT
 ================================================================================
 
-3.1. THE HYBRID INTELLIGENCE PIPELINE
-We moved beyond simple classification by building a **Hybrid Safety Engine** that combines machine learning with deterministic safety rules:
+3.1. THE INTEGRATED PIPELINE APPROACH
+We moved beyond simple classification by building a "Feature Bridge." Instead of training a model in isolation, we feed the outputs of the AquaSentinel anomaly detection unit as input features into our final decision engine.
 
--   **Phase 1: ML Classification.** The audited 81.4% Random Forest core analyzes 9 high-impact chemical indicators (pH, Hardness, Solids, etc.).
--   **Phase 2: WHO Safety Overrides.** The remaining 11 critical parameters (Arsenic, Lead, Bacteria, etc.) are monitored via a "Safety Switch." If any parameter exceeds WHO/EPA safety levels, the AI automatically triggers a **CAUTION** or **UNSAFE** verdict, ensuring 100% safety even for non-ML features.
--   **Step 2: Bridge Integration.** The `feature_bridge.py` module translates these chemical readings into "sensor gradients" to query the AquaSentinel model.
--   **Step 3: Geospatial Context.** Depending on the user's location, the system loads the relevant infrastructure layer—either Dubai's pipe network or Bangladesh's district-level groundwater survey data.
+-   Step 1: Chemical Analysis. The core EcoMed-AI model analyzes 9 parameters (pH, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity).
+-   Step 2: Bridge Integration. The `feature_bridge.py` module translates these chemical readings into "sensor gradients" (rates of change) to query the AquaSentinel model.
+-   Step 3: Geospatial Context. Depending on the user's location, the system loads the relevant infrastructure layer—either Dubai's pipe network or Bangladesh's district-level groundwater survey data.
 
 3.2. MODEL TRAINING STRATEGY
 We utilized a Random Forest Classifier for its robustness against overfitting and ability to handle non-linear relationships in chemical data.
 -   Algorithm: Random Forest (n_estimators=300)
 -   Class Balancing: Applied 'balanced' weights to handle the scarcity of 'Safe' samples vs. 'Unsafe' ones.
--   Safety Protocol: The model logic prioritizes "Overfitting Prevention." By reducing the gap from 31% to 6.7%, we've built a model that actually generalizes to new water systems, rather than just memorizing training data.
+-   Safety Protocol: The model logic prioritizes "Overfitting Prevention." By reducing the gap from 31% to 8%, we've built a model that actually generalizes to new water systems, rather than just memorizing training data.
+-   Forensic Audit: We intentionally rejected a 94.8% accuracy benchmark because our audit identified deterministic data leakage. Our 81.4% model is the scientifically honest, production-ready solution.
 
 ================================================================================
 4. TECHNICAL ARCHITECTURE & FILE STRUCTURE
@@ -60,19 +60,19 @@ Here is a breakdown of the critical files included in your submission and their 
 
 [INTEGRATION MODULES]
 -   feature_bridge.py:
-    The "Translator." This script connects our chemistry model with the AquaSentinel Anomaly Detection unit. It takes static chemical readings and derives the dynamic features (like 'conductivity gradient') that the temporal analysis model needs to assess anomaly risks.
+    The "Translator." This script connects our chemistry model with the external AquaSentinel system. It takes static chemical readings and derives the dynamic features (like 'conductivity gradient') that the partner model needs to assess anomaly risks.
 
 -   generate_bangladesh_data.py:
     A simulation script used to create the Bangladesh groundwater dataset. It uses real-world statistics from the British Geological Survey (BGS) and WHO to simulate arsenic and bacteria contamination patterns across 15 Bangladesh districts.
 
 [TRAINING & MODELING]
--   train_regularized_model.py:
-    The "Scientific Factory." This is the script used to train the final regularized model. It uses a **Random Forest Classifier** with strong pruning to achieve high generalization stability.
+-   train_on_waterquality1.py:
+    The "Factory." This is the script used to train the final Artificial Intelligence model. It loads the raw data, cleans it, trains the Random Forest, and saves the optimized model files (.pkl) for the app to use.
 
 [DATASETS]
--   waterQuality1.csv: Primary training dataset (Kaggle Global Benchmark: 7,996 samples).
--   bangladesh_water.csv: Regional validation dataset (Groundwater risk profile).
--   aquasentinel/source_tracing_results.csv: Time-series dataset (Sensor-based anomaly monitoring).
+-   waterQuality1.csv: The primary dataset used for training (7,996 samples).
+-   bangladesh_water.csv: The dataset representing groundwater risks in Bangladesh.
+-   aquasentinel/source_tracing_results.csv: The partner dataset representing pipe network anomalies in Dubai.
 
 ================================================================================
 5. GLOBAL SCALABILITY DEMONSTRATION
