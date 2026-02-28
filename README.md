@@ -92,7 +92,7 @@ This is the core of your hackathon story — **three systems, one decision**:
   │ Chemistry   │ │ Temporal    │ │ Spatial      │
   │ analysis    │ │ anomaly     │ │ proximity    │
   │             │ │ detection   │ │ to source    │
-  │ 9 features  │ │ Time-series │ │ GIS + rules  │
+  │ 25 features │ │ Time-series │ │ GIS + rules  │
   │ RF model    │ │ VotingClf   │ │ Haversine    │
   └──────┬──────┘ └──────┬──────┘ └──────┬───────┘
          │               │               │

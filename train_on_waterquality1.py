@@ -23,13 +23,17 @@ Output: data/processed/wq1_model/
 """
 
 import json, os, numpy as np, pandas as pd, joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
 from pathlib import Path
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
-from sklearn.metrics import (accuracy_score, classification_report,
-                             roc_auc_score, confusion_matrix, f1_score)
+from sklearn.metrics import (
+    accuracy_score, classification_report, 
+    roc_auc_score, roc_curve, confusion_matrix, f1_score
+)
 
 SEED = 42
 np.random.seed(SEED)
@@ -207,9 +211,46 @@ summary = {
 with open(out_dir / "performance_summary.json", "w") as f:
     json.dump(summary, f, indent=2)
 
-print(f"\n✅ Saved to: {out_dir}/")
-print("   Files: model.pkl, scaler.pkl, imputer.pkl,")
-print("          feature_names.json, performance_summary.json")
+# ─────────────────────────────────────────────────────────────────────────────
+# 12. Generate Professional Visualizations
+# ─────────────────────────────────────────────────────────────────────────────
+viz_dir = Path("visualizations")
+viz_dir.mkdir(parents=True, exist_ok=True)
+
+# 12.1. Confusion Matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=["Unsafe (0)", "Safe (1)"], 
+            yticklabels=["Unsafe (0)", "Safe (1)"])
+plt.title(f"Confusion Matrix (Accuracy: {test_acc*100:.1f}%)")
+plt.ylabel("Actual")
+plt.xlabel("Predicted")
+plt.savefig(viz_dir / "1_confusion_matrix.png", dpi=300, bbox_inches='tight')
+plt.close()
+
+# 12.2. ROC Curve
+fpr, tpr, _ = roc_curve(y_test, rf.predict_proba(X_test_sc)[:, 1])
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, label=f"Random Forest (AUC = {test_roc:.3f})", lw=2)
+plt.plot([0, 1], [0, 1], 'k--', lw=1)
+plt.title("ROC Curve")
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.legend(loc="lower right")
+plt.grid(alpha=0.3)
+plt.savefig(viz_dir / "2_roc_curve.png", dpi=300, bbox_inches='tight')
+plt.close()
+
+# 12.3. Feature Importance
+plt.figure(figsize=(10, 8))
+importances.head(15).plot(kind='barh').invert_yaxis()
+plt.title("Top 15 Feature Importances (EcoMed-AI)")
+plt.xlabel("Importance Score")
+plt.savefig(viz_dir / "3_feature_importance.png", dpi=300, bbox_inches='tight')
+plt.close()
+
+print(f"\n📈 Visualizations saved to: {viz_dir}/")
+print("   Files: 1_confusion_matrix.png, 2_roc_curve.png, 3_feature_importance.png")
 print("\n" + "=" * 70)
 print("🎯 TRAINING COMPLETE")
 print("=" * 70)
