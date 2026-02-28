@@ -23,6 +23,9 @@ ENV/
 # The main model is ~4.9 MB — included. The large event log is excluded.
 aquasentinel_complete_export/aquasentinel_model/anomaly_events.csv
 
+# ─── Legacy model (superseded by wq1_model) ───────────────────────────────────
+data/processed/regularized_model/
+
 # ─── Archives / zips (too large for git) ─────────────────────────────────────
 *.zip
 
