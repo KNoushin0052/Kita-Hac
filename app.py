@@ -40,7 +40,7 @@ except Exception:
 import urllib.request as _urllib_req
 
 # YOUR API (EcoMed-AI Intelligence Node)
-ECOMED_API_URL = "https://ecomed-api-jvabpvtrfq-uc.a.run.app/predict"
+ECOMED_API_URL = "https://ecomed-api-474707939537.us-central1.run.app/predict"
 
 # FRIEND'S API (AquaSentinel Source Tracing Node)
 FRIEND_API_URL = "https://ecomed-backend-474707939537.us-central1.run.app/trace-pollution"
