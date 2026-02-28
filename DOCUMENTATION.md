@@ -6,8 +6,8 @@
 ## 1. Project Overview
 EcoMed-AI is a **multi-regional water safety intelligence system** that integrates three distinct layers of analysis to detect contamination:
 1.  **Chemical Safety (EcoMed-AI):** A Random Forest model analysing 20 chemical parameters (Arsenic, Lead, Bacteria, etc.) to predict potability. Works globally.
-2.  **Anomaly Detection (AquaSentinel - Friend's P1):** A temporal model detecting sudden spikes in sensor readings (conductivity/turbidity gradients).
-3.  **Source Tracing (Friend's P2):** A geospatial module that maps contamination to specific pipe infrastructure (in Dubai) or groundwater districts (in Bangladesh).
+2.  **Anomaly Detection (AquaSentinel):** A temporal model detecting sudden spikes in sensor readings (conductivity/turbidity gradients).
+3.  **Source Tracing Layer:** A geospatial module that maps contamination to specific pipe infrastructure (in Dubai) or groundwater districts (in Bangladesh).
 
 ---
 
@@ -19,12 +19,12 @@ The system is built on a **modular architecture** where independent models commu
 [ User Input / Sensors ]
        │
        ▼
-[ feature_bridge.py ] ───────▶ [ AquaSentinel (P1) Model ]
+[ feature_bridge.py ] ───────▶ [ AquaSentinel Model ]
        │                                  │
        │ (Feature Engineering)            ▼ (Anomaly Score)
        │
        ▼
-[ EcoMed-AI Model ] ◀────────── [ Geo-Context (P2) ]
+[ EcoMed-AI Model ] ◀────────── [ Geospatial Context Module ]
        │
        ▼
 [ integrated_pipeline.py ] ───▶ [ Final Safety Verdict ]
@@ -41,8 +41,8 @@ A key innovation is the system's ability to adapt its visualization based on reg
 | Region | Data Source | Visualization Layer |
 | :--- | :--- | :--- |
 | **Global (Core)** | `waterQuality1.csv` | **Chemical Safety Score** (Universal) |
-| **Dubai, UAE** | `infrastructure_sensors.csv` | **Pipe Network & Leak Detection** (Friend's P2) |
-| **Bangladesh** | `bangladesh_water.csv` | **Groundwater Arsenic & Bacteria Risk** (New Layer) |
+| **Dubai, UAE** | `infrastructure_sensors.csv` | **Pipe Network & Leak Detection** (Urban Context) |
+| **Bangladesh** | `bangladesh_water.csv` | **Groundwater Arsenic & Bacteria Risk** (Regional Context) |
 
 ---
 
@@ -54,7 +54,7 @@ A key innovation is the system's ability to adapt its visualization based on reg
 - **`integration_config.json`**: Central configuration file for all paths, thresholds, and hyperparameters.
 
 ### 🟡 Integration Logic
-- **`feature_bridge.py`**: The "Glue Code". Translates basic chemistry inputs into the complex time-series features expected by the AquaSentinel model.
+- **`feature_bridge.py`**: The "Glue Code". Translates basic chemistry inputs into the complex time-series features expected by the external AquaSentinel model.
 - **`generate_bangladesh_data.py`**: a script that generates realistic groundwater data based on BGS/WHO statistics for the Bangladesh demo.
 
 ### 🔴 Training & Modeling

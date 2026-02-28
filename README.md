@@ -16,7 +16,7 @@ EcoMed-AI/
 │   ├── raw/                   ← Benchmark Datasets (waterQuality1.csv, etc.)
 │   └── processed/wq1_model/   ← ✅ PRODUCTION MODEL (v2 Integrated)
 │
-├── 📂 aquasentinel_complete_export/ ← Team P1: Temporal Anomaly Detector
+├── 📂 aquasentinel_complete_export/ ← Subsystem A: Temporal Anomaly Detector
 ├── 📂 visualizations/          ← Performance Charts & Dashboards
 │
 ├── ⚙️  integration_config.json  ← Central Configuration (Thresholds & Paths)
@@ -83,7 +83,7 @@ This is the core of your hackathon story — **three systems, one decision**:
          ▼               ▼               ▼
   ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
   │  EcoMed-AI  │ │AquaSentinel │ │Source Tracing│
-  │  (YOUR MODEL)│ │ (Friend P1) │ │ (Friend P2)  │
+  │ (Core Model)│ │ (Anomaly Unit)│ │ (Geo Module) │
   │             │ │             │ │              │
   │ Chemistry   │ │ Temporal    │ │ Spatial      │
   │ analysis    │ │ anomaly     │ │ proximity    │
@@ -117,12 +117,12 @@ This is the core of your hackathon story — **three systems, one decision**:
    - Scales features (using train-fitted scaler)
    - Returns `P(safe)` probability
 
-**3. `feature_bridge.py` calls AquaSentinel (friend's P1)**:
+**3. `feature_bridge.py` integrates AquaSentinel logic**:
    - Translates chemistry columns → sensor gradient features
-   - Calls `frozen_model.predict_proba()` — never retrains it
+   - Calls `frozen_model.predict_proba()` — uses the standalone inference bundle
    - Returns `anomaly_risk` score (0–1)
 
-**4. Source Tracing (friend's P2)** is applied as a rule:
+**4. Geospatial Context (Source Tracing)** is applied as a rule:
    - Heavy metal load (arsenic + cadmium + lead + mercury + chromium)
    - Maps to proximity: VERY CLOSE / CLOSE / MODERATE / DISTANT
 
@@ -130,11 +130,11 @@ This is the core of your hackathon story — **three systems, one decision**:
 
 ---
 
-## 🤝 How to Hand Off to Your Friend
+## 🧩 System Interoperability & Integration
 
-Your friend needs to give you **one thing** to plug in their model:
+This section details how the EcoMed-AI core interacts with the external AquaSentinel artifacts.
 
-### What your friend provides:
+### 1. External Artifacts Required:
 ```
 aquasentinel_complete_export/
 └── aquasentinel_model/
@@ -152,9 +152,9 @@ The `.pkl` file must contain a dict with these keys:
 }
 ```
 
-### What you call on their model:
+### 2. Integration Implementation:
 ```python
-# In feature_bridge.py — this is the ONLY place friend's model is called
+# In feature_bridge.py — the primary integration point
 artifacts = joblib.load("aquasentinel_complete_export/aquasentinel_model/anomaly_detector.pkl")
 frozen_model  = artifacts["model"]
 frozen_scaler = artifacts["scaler"]
@@ -162,19 +162,19 @@ feature_names = artifacts["feature_names"]
 
 # Build the 13 sensor features from your chemistry data
 sensor_df = chemistry_to_sensor_features(df_chemistry, config)
-sensor_df = sensor_df[feature_names]          # ensure correct column order
-scaled    = frozen_scaler.transform(sensor_df) # use THEIR scaler, not yours
-anomaly_prob = frozen_model.predict_proba(scaled)[:, 1]  # P(anomaly)
+sensor_df = sensor_df[feature_names]          # enforce schema alignment
+scaled    = frozen_scaler.transform(sensor_df) # apply dedicated scaling
+anomaly_prob = frozen_model.predict_proba(scaled)[:, 1] 
 ```
 
-### What you give your friend:
+### 3. Cross-System API Usage:
 ```python
-# Your model as a simple function they can call:
+# The EcoMed-AI core can be queried by external modules:
 from integrated_pipeline import IntegratedWaterSafetyPipeline
 pipeline = IntegratedWaterSafetyPipeline()
 
-# They pass chemistry readings, you return a safety score
-result = pipeline.predict(their_sample_dict)
+# Input: chemistry readings | Output: safety score + analysis
+result = pipeline.predict(sample_input_dict)
 # result["potability_probability"]  → float 0–1
 # result["safety_label"]            → "✅ SAFE" or "⚠️ UNSAFE"
 # result["aqua_anomaly_risk"]       → float 0–1 (from their model)

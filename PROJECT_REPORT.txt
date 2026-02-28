@@ -7,7 +7,7 @@ DATE: February 18, 2026
 
 EcoMed-AI is a next-generation water quality monitoring system designed to bridge the gap between chemical analysis, temporal anomaly detection, and geospatial source tracing. While traditional water testing relies on isolated metrics, EcoMed-AI integrates three distinct layers of intelligence into a single decision-making pipeline.
 
-The system determines water potability with 94.8% accuracy using a Random Forest model trained on 20 critical chemical parameters (WHO standards). It uniquely enhances this analysis by integrating with "AquaSentinel" (a partner system) to factor in historical anomaly risks and physical infrastructure context.
+The system determines water potability with 94.8% accuracy using a Random Forest model trained on 20 critical chemical parameters (WHO standards). It uniquely enhances this analysis by integrating with the "AquaSentinel" temporal analysis unit to factor in historical anomaly risks and physical infrastructure context.
 
 A key innovation of this project is its "Global Adaptability." The system can seamlessly switch between analyzing pipe-network infrastructure (e.g., Dubai) and groundwater-based risk zones (e.g., Bangladesh), proving that the core AI architecture is universally applicable.
 
@@ -19,7 +19,7 @@ A key innovation of this project is its "Global Adaptability." The system can se
 To build a unified, automated system that predicts whether a water sample is SAFE or UNSAFE for human consumption, providing not just a binary label but a detailed, explainable safety verdict.
 
 2.2. KEY OBJECTIVES
--   Integrate Chemistry & Context: Combine pure chemical data (EcoMed-AI) with temporal anomaly scores (AquaSentinel P1) and spatial data (Source Tracing P2).
+-   Integrate Chemistry & Context: Combine pure chemical data (EcoMed-AI) with temporal anomaly scores (AquaSentinel subsystem) and spatial data (Geospatial Analysis layer).
 -   Achieve High Accuracy: Surpass the 90% benchmark on synthetic testing data while maintaining robust recall on unsafe samples (catching dangerous water is the priority).
 -   Ensure Global Scalability: Demonstrate the system's ability to handle different types of water networks—specifically comparing a modern pipe network (Dubai) vs. a groundwater-dependent region (Bangladesh).
 -   Real-Time Visualisation: Provide an interactive dashboard for stakeholders to visualize contamination risks live on a map.
@@ -29,7 +29,7 @@ To build a unified, automated system that predicts whether a water sample is SAF
 ================================================================================
 
 3.1. THE INTEGRATED PIPELINE APPROACH
-We moved beyond simple classification by building a "Feature Bridge." Instead of training a model in isolation, we feed the outputs of our partner's anomaly detection system (AquaSentinel) as input features into our final decision engine.
+We moved beyond simple classification by building a "Feature Bridge." Instead of training a model in isolation, we feed the outputs of the AquaSentinel anomaly detection unit as input features into our final decision engine.
 
 -   Step 1: Chemical Analysis. The core EcoMed-AI model analyzes 20 parameters (Aluminum, Arsenic, Bacteria, Lead, etc.).
 -   Step 2: Bridge Integration. The `feature_bridge.py` module translates these chemical readings into "sensor gradients" (rates of change) to query the AquaSentinel model.
@@ -59,7 +59,7 @@ Here is a breakdown of the critical files included in your submission and their 
 
 [INTEGRATION MODULES]
 -   feature_bridge.py:
-    The "Translator." This script connects our chemistry model with the external AquaSentinel system. It takes static chemical readings and derives the dynamic features (like 'conductivity gradient') that the partner model needs to assess anomaly risks.
+    The "Translator." This script connects our chemistry model with the AquaSentinel Anomaly Detection unit. It takes static chemical readings and derives the dynamic features (like 'conductivity gradient') that the temporal analysis model needs to assess anomaly risks.
 
 -   generate_bangladesh_data.py:
     A simulation script used to create the Bangladesh groundwater dataset. It uses real-world statistics from the British Geological Survey (BGS) and WHO to simulate arsenic and bacteria contamination patterns across 15 Bangladesh districts.
@@ -71,7 +71,7 @@ Here is a breakdown of the critical files included in your submission and their 
 [DATASETS]
 -   waterQuality1.csv: The primary dataset used for training (7,996 samples).
 -   bangladesh_water.csv: The dataset representing groundwater risks in Bangladesh.
--   aquasentinel/source_tracing_results.csv: The partner dataset representing pipe network anomalies in Dubai.
+-   aquasentinel/source_tracing_results.csv: The time-series dataset representing pipe network anomalies in Dubai.
 
 ================================================================================
 5. GLOBAL SCALABILITY DEMONSTRATION
